@@ -1,0 +1,83 @@
+#!/bin/bash
+
+help_string="This script helps with typing arrival and leave times in the hours repoerting system.\n\
+Usage: fill TIME [ACTION]\n\
+TIME: morning (m) | afternoon (a)\n\
+ACTION: arrive (ar) | leave (l)"
+
+
+if [ "$#" -lt 1 ]; then
+  echo "Please provide at least one argument: TIME [ACTION]"
+  echo "Type --help for more information."
+  exit 1
+fi
+
+if [ "$1" = "--help" ]; then
+  echo -e $help_string
+  exit 0
+fi
+
+
+time=$1
+if [ "$time" = "morning" ]  || [ "$time" = "m" ]; then
+  time="morning"
+fi
+
+if [ "$time" = "afternoon" ]  || [ "$time" = "a" ]; then
+  time="afternoon"
+fi
+
+if [ "$time" != "morning" ] && [ "$time" != "afternoon" ]; then
+  echo -e $help_string
+fi
+
+action=$2
+if [ "$action" = "arrive" ]  || [ "$action" = "ar" ]; then
+  action="arrive"
+fi
+
+if [ "$action" = "leave" ]  || [ "$action" = "l" ]; then
+  action="leave"
+fi
+
+if [ ! -z "$action" ]; then # action set (action is optional)
+  if [ "$action" != "arrive" ] && [ "$action" != "leave" ]; then
+    echo -e $help_string
+    exit 1
+  fi
+fi
+
+# Strings to be typed
+morning_arrive="08:00"
+morning_leave="12:00"
+afternoon_arrive="13:00"
+afternoon_leave="17:12"
+
+# Get variable value out of variable name string representation
+
+
+# action is optional, check if set
+if [ ! -z "$action" ]; then # action set
+  declare -n timeaction=${time}_$action
+  # Type a single time (e.g. morning_arrive)
+  xdotool sleep 1 type --clearmodifiers $timeaction
+else # action not set
+  if [ $time = "morning" ]; then
+    # Type morning arrive then wait for a second and type morning leave
+    xdotool sleep 1 type --clearmodifiers $morning_arrive
+    xdotool sleep 1 type --clearmodifiers $morning_leave
+  else #afternoon
+     # Type afternoon arrive then wait for a second and type afternoon leave
+    xdotool sleep 1 type --clearmodifiers $afternoon_arrive
+    xdotool sleep 1 type --clearmodifiers $afternoon_leave
+  fi
+fi
+
+
+
+
+
+
+
+
+
