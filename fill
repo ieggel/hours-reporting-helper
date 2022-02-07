@@ -55,7 +55,7 @@ afternoon_leave="17:12"
 
 # Get variable value out of variable name string representation
 
-
+sleep 1
 # action is optional, check if set
 if [ ! -z "$action" ]; then # action set
   declare -n timeaction=${time}_$action
@@ -65,11 +65,11 @@ else # action not set
   if [ $time = "morning" ]; then
     # Type morning arrive then wait for a second and type morning leave
     xdotool sleep 1 type --clearmodifiers $morning_arrive
-    xdotool sleep 1 type --clearmodifiers $morning_leave
+    xdotool sleep 2 type --clearmodifiers $morning_leave
   else #afternoon
      # Type afternoon arrive then wait for a second and type afternoon leave
     xdotool sleep 1 type --clearmodifiers $afternoon_arrive
-    xdotool sleep 1 type --clearmodifiers $afternoon_leave
+    xdotool sleep 2 type --clearmodifiers $afternoon_leave
   fi
 fi
 
