@@ -1,0 +1,12 @@
+#!/bin/bash
+
+morning_arrive="08:00"
+morning_leave="12:00"
+afternoon_arrive="13:00"
+afternoon_leave="17:12"
+
+
+times=(${morning_arrive} ${morning_leave} ${afternoon_arrive} ${afternoon_leave})
+
+selected=$(printf '%s\n' "${times[@]}" | dmenu)
+xdotool type $selected 
